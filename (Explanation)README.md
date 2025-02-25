@@ -70,7 +70,7 @@ Uses a queue (FIFO order).
 Also known as Level Order Traversal in trees.
 
 
-** Task-4: Monkey Banana problem:
+** Task-4: Monkey Banana problem: **
 
 Monkey-Banana Problem (AI & Problem Solving)
 
@@ -85,7 +85,7 @@ Climb the box
 Grab the banana (goal state)
 
 
-** Task-5: 8-puzzle problem:
+** Task-5: 8-puzzle problem: **
 
 8-Puzzle Problem (Search & Heuristic AI)
 
@@ -98,7 +98,7 @@ Depth-First Search (DFS) for exhaustive search.
 A Algorithm* with the Manhattan Distance heuristic for efficient solving.
 
 
-** Task-6: Hangman game:
+** Task-6: Hangman game: **
 
 Hangman (Game & String Processing)
 
@@ -114,7 +114,7 @@ Lose Condition: Exceed the maximum number of incorrect guesses.
 AI Implementation: AI can play optimally by choosing the most frequent letters first (like ‘E’, ‘T’, ‘A’).
 
 
-** task-7: 8-Queens problem:
+** task-7: 8-Queens problem: **
 
 8-Queens Problem (Backtracking AI)
 Problem: Place 8 queens on a chessboard such that no two queens attack each other.
