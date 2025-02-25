@@ -5,20 +5,26 @@ This problem involves designing two types of agents (Simple Reflex Agent and Tab
 Initial State:
 All rooms start as dirty (['dirty', 'dirty', 'dirty', 'dirty']).
 The agent begins in Room A (for Simple Reflex Agent).
+
 Agent Behaviors:
 Simple Reflex Agent:
 Observes the current room.
 Cleans it if dirty, then moves to the next room.
 Continues until all rooms are clean.
+
 Table-Driven Agent:
 Uses a predefined lookup table to decide actions based on the current state of all rooms.
 Cleans rooms according to the table’s rules.
+
 Final State:
+
 All rooms are clean (['clean', 'clean', 'clean', 'clean']).
 The agent stops after completing its task.
+
 Key Differences:
 The Simple Reflex Agent makes dynamic decisions based on perception.
 The Table-Driven Agent follows a static set of rules from a predefined table.
+
 Conclusion
 Both agents effectively clean the rooms, but the Simple Reflex Agent is more flexible, whereas the Table-Driven Agent is limited by its predefined table.
 
