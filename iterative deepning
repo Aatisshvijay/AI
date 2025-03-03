@@ -1,0 +1,19 @@
+5. Iterative Deepening Depth-First Search (IDDFS): Runway Allocation
+Narrative: Planes landing at an airport are assigned runways incrementally based on availability and priority.
+
+Solution Approach:
+
+Algorithm: IDDFS is useful here because it systematically searches for available runways while controlling depth.
+State Space: Nodes represent runway states (available or occupied), and transitions represent landing assignments.
+Implementation Steps:
+Start with a depth limit of 1 and perform Depth-First Search (DFS).
+If a solution is not found, increase the depth limit and restart the search.
+Continue until a valid runway allocation is determined.
+Prioritize high-priority flights (e.g., emergency landings).
+Challenges & Extensions:
+
+Challenges:
+Avoiding assigning the same runway to multiple flights.
+Balancing runway utilization and minimizing delays.
+Extensions:
+Introducing dynamic runway closures, forcing recalculations.
