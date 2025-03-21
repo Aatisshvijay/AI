@@ -1,126 +1,125 @@
-# Hangman Stages (Visual Representation)
-stages = ['''
-+---+
-|   |
-O   |
-/|\  |
-/ \  |
-    |
-=========
-''', '''
-+---+
-|   |
-O   |
-/|\  |
-/    |
-    |
-=========
-''', '''
-+---+
-|   |
-O   |
-/|\  |
-     |
-    |
-=========
-''', '''
-+---+
-|   |
-O   |
-/|   |
-     |
-    |
-=========
-''', '''
-+---+
-|   |
-O   |
- |   |
-     |
-    |
-=========
-''', '''
-+---+
-|   |
-O   |
-     |
-     |
-    |
-=========
-''', '''
-+---+
-|   |
-    |
-     |
-     |
-    |
-=========
-''']
 
-# Main Hangman Game Function
+# Hangman body parts
+HANGMAN_STAGES = [
+    """
+       ------
+       |    |
+            |
+            |
+            |
+            |
+    =========
+    """,
+    """
+       ------
+       |    |
+       O    |
+            |
+            |
+            |
+    =========
+    """,
+    """
+       ------
+       |    |
+       O    |
+       |    |
+            |
+            |
+    =========
+    """,
+    """
+       ------
+       |    |
+       O    |
+      /|    |
+            |
+            |
+    =========
+    """,
+    """
+       ------
+       |    |
+       O    |
+      /|\\   |
+            |
+            |
+    =========
+    """,
+    """
+       ------
+       |    |
+       O    |
+      /|\\   |
+      /     |
+            |
+    =========
+    """,
+    """
+       ------
+       |    |
+       O    |
+      /|\\   |
+      / \\   |
+            |
+    =========
+    """,
+]
+
+def clear_screen():
+    """Clears the console screen."""
+
+def get_word():
+    """Player 1 enters the secret word and an optional clue."""
+    print("Player 1: Enter the word for Player 2 to guess (no spaces).")
+    word = input("Word: ").strip().lower()
+    clue = input("Enter a clue (optional): ").strip()
+    clear_screen()
+    return word, clue
+
+def display_progress(word, guessed_letters, attempts):
+    """Displays the hangman stage and current word progress."""
+    print(HANGMAN_STAGES[attempts])
+    progress = " ".join(letter if letter in guessed_letters else "_" for letter in word)
+    print("\nWord: ", progress)
+
 def hangman():
-    print("\n-------------Welcome to 2-Player Hangman-------------\n")
-    
-    # Player 1 chooses the secret word
-    print("Player 1: Choose a secret word for Player 2 to guess.")
-    chosen_word = input("Enter the secret word: ").lower()
-    
-    # Hide the word with enough newlines for secrecy
-    print("\n" * 50)
-    print("Word is set. Player 2, get ready to guess!")
-    
-    # Prepare the display with underscores
-    display = ["_"] * len(chosen_word)
-    end_of_loop = False
-    lives = 6
+    word, clue = get_word()
     guessed_letters = set()
-    
-    print("Guess the word:- ", end=" ")
-    print(f"{' '.join(display)}")
-    print(f"Lives: {lives}")
-    
-    while not end_of_loop:
-        guess = input("Player 2, Guess a Letter: ").lower()
+    attempts = 0  # Starts with no body parts drawn (max 6 attempts)
 
-        # Check if the guess was already made
-        if guess in guessed_letters:
-            print("You already guessed that letter. Try another one.")
+    print("Player 2: Start guessing the word!")
+    if clue:
+        print(f"Clue: {clue}")
+
+    while attempts < len(HANGMAN_STAGES) - 1:
+        display_progress(word, guessed_letters, attempts)
+        guess = input("\nGuess a letter: ").strip().lower()
+
+        if not guess.isalpha() or len(guess) != 1:
+            print("Invalid input! Enter a single letter.")
             continue
-        
+
+        if guess in guessed_letters:
+            print("You've already guessed that letter!")
+            continue
+
         guessed_letters.add(guess)
-        
-        # Incorrect guess
-        if guess not in chosen_word:
-            lives -= 1
-            print("Wrong guess. You lost a life.")
+
+        if guess in word:
+            print(f"Good job! '{guess}' is in the word.")
         else:
-            # Correct guess
-            for index, letter in enumerate(chosen_word):
-                if letter == guess:
-                    display[index] = guess
+            attempts += 1
+            print(f"Wrong guess! You have {6 - attempts} attempts left.")
 
-        # Display the current game status
-        print(f"{' '.join(display)}")
-        print(f"Lives: {lives}")
-        print(stages[6 - lives])  # Display corresponding hangman stage
+        if all(letter in guessed_letters for letter in word):
+            display_progress(word, guessed_letters, attempts)
+            print("\n🎉 Congratulations! You guessed the word correctly! 🎉")
+            return
 
-        # Check for win or lose condition
-        if "_" not in display:
-            print("🎉 Player 2 Wins! Congratulations!")
-            end_of_loop = True
-        elif lives == 0:
-            print("💀 Player 2 Loses! Better luck next time.")
-            print(f"The word was: {chosen_word}")
-            end_of_loop = True
+    print(HANGMAN_STAGES[attempts])
+    print("\n💀 Game Over! The full body was drawn. You lost.")
+    print(f"The correct word was: {word}")
 
-# Game Loop to allow replaying
-end_of_game = False
-while not end_of_game:
-    ask = input("\nDo you want to play 2-Player Hangman? (y/n): ").lower()
-    if ask in ('y', 'yes'):
-        hangman()
-    elif ask in ('n', 'no'):
-        print("Program Exit Successful. Goodbye!")
-        end_of_game = True
-    else:
-        print("Invalid input. Please enter 'y' or 'n'.")
+# Run the game
+hangman()
